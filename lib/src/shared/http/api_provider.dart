@@ -97,7 +97,7 @@ class APiProvider {
     };
 
     try {
-      var response;
+      Response response;
       if (requestType == RequestType.POST) {
         response = await _dio.post(
           url,
