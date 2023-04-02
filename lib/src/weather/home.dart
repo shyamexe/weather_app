@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:weather_app/src/shared/constants/lottie_url.dart';
+import 'package:weather_app/src/shared/helper/text_helper.dart';
 import 'package:weather_app/src/weather/bloc/current_weather_cubit.dart';
 import 'package:weather_app/src/weather/bloc/location_cubit.dart';
 
-import '../settings/settings_view.dart';
-import 'sample_item_details_view.dart';
-
-/// Displays a list of SampleItems.
 class Home extends StatefulWidget {
   static const routeName = '/';
+
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -41,41 +41,199 @@ class _HomeState extends State<Home> {
               return BlocBuilder<CurrentWeatherCubit, CurrentWeatherState>(
                 builder: (context, current) {
                   if (current is CurrentWeatherLoaded) {
-                    return Column(
-                      children: [
-                        SizedBox(height: 20,),
-                        Text(
-                          '${current.data.location?.name.toString()},${current.data.location?.region.toString()}',
-                          style: TextStyle(
-                            fontSize: 40,
+                    return CustomScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      slivers: [
+                        SliverAppBar(
+                          leading: Image.network(
+                            'http:${current.data?.current?.condition?.icon ?? ''}',
+                            fit: BoxFit.contain,
                           ),
-                        ),
-                        SizedBox(height: 10,),
-                        Text(
-                          '${current.data.current?.tempC.toString() ?? ''} ℃',
-                          style: TextStyle(
-                            fontSize: 72,
-                          ),
-                        ),
-                        SizedBox(height: 20,),
-
-                        Center(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.network(
-                                'http:${current.data.current?.condition?.icon ?? ''}',
-                                fit: BoxFit.contain,
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                  ' ${current.data.current?.condition?.text ?? ''}.')
+                          elevation: 0,
+                          expandedHeight: 410,
+                          snap: true,
+                          stretch: true,
+                          floating: true,
+                          pinned: true,
+                          flexibleSpace: FlexibleSpaceBar(
+                            title: Text(
+                                current.data?.current?.condition?.text ?? ""),
+                            collapseMode: CollapseMode.parallax,
+                            stretchModes: const [
+                              StretchMode.blurBackground,
+                              StretchMode.fadeTitle
                             ],
+                            background: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${current.data?.location?.name.toString()},${current.data?.location?.region.toString()}',
+                                  style: const TextStyle(
+                                    fontSize: 40,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  height: 250,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 250,
+                                        child: Lottie.network(
+                                            lottieUrls
+                                                .where((element) =>
+                                                    element['code'] ==
+                                                    current.data?.current
+                                                        ?.condition?.code
+                                                        .toString())
+                                                .first['url'],
+                                            fit: BoxFit.contain),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 5),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color:
+                                                Colors.black.withOpacity(.3)),
+                                        child: Text(
+                                          '${current.data?.current?.tempC.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "") ?? ''}℃',
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 60),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                )
+                              ],
+                            ),
                           ),
                         ),
-
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              return Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Column(
+                                    children: List.generate(
+                                      current.forecaste?.forecast?.forecastday
+                                              ?.length ??
+                                          0,
+                                      (index) => Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Card(
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                leading: Image.network(
+                                                    'http:${current.forecaste?.forecast?.forecastday?[index].day?.condition?.icon ?? ''}'),
+                                                title: Text(TextHelpers()
+                                                    .dateformatter(current
+                                                            .forecaste
+                                                            ?.forecast
+                                                            ?.forecastday?[
+                                                                index]
+                                                            .date
+                                                            .toString() ??
+                                                        '')),
+                                                subtitle: Text(current
+                                                        .forecaste
+                                                        ?.forecast
+                                                        ?.forecastday?[index]
+                                                        .day
+                                                        ?.condition
+                                                        ?.text ??
+                                                    ''),
+                                                trailing: Text(
+                                                  "${current.forecaste?.forecast?.forecastday?[index].day?.avgtempC.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "")}℃",
+                                                  style: TextStyle(
+                                                    fontSize: 32
+                                                  ),
+                                                ),
+                                              ),
+                                              SingleChildScrollView(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  children: List.generate(
+                                                      current
+                                                              .forecaste
+                                                              ?.forecast
+                                                              ?.forecastday?[
+                                                                  index]
+                                                              .hour
+                                                              ?.length ??
+                                                          0,
+                                                      (j) => Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        10),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(TextHelpers().dayTime(current
+                                                                        .forecaste
+                                                                        ?.forecast
+                                                                        ?.forecastday?[
+                                                                            index]
+                                                                        .hour?[
+                                                                            j]
+                                                                        .time ??
+                                                                    '')),
+                                                                Image.network(
+                                                                    'http:${current.forecaste?.forecast?.forecastday?[index].hour?[j].condition?.icon ?? ''}'),
+                                                                Text(current
+                                                                        .forecaste
+                                                                        ?.forecast
+                                                                        ?.forecastday?[
+                                                                            index]
+                                                                        .hour?[
+                                                                            j]
+                                                                        .condition
+                                                                        ?.text ??
+                                                                    '')
+                                                              ],
+                                                            ),
+                                                          )),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 60,
+                                  ),
+                                ],
+                              );
+                            },
+                            childCount: 1,
+                          ),
+                        ),
                       ],
                     );
                   } else {
