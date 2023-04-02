@@ -51,9 +51,7 @@ class _HomeState extends State<Home> {
                           ),
                           elevation: 0,
                           expandedHeight: 410,
-                          snap: true,
                           stretch: true,
-                          floating: true,
                           pinned: true,
                           flexibleSpace: FlexibleSpaceBar(
                             title: Text(
@@ -157,7 +155,7 @@ class _HomeState extends State<Home> {
                                                     ''),
                                                 trailing: Text(
                                                   "${current.forecaste?.forecast?.forecastday?[index].day?.avgtempC.toString().replaceAll(RegExp(r"([.]*0)(?!.*\d)"), "")}℃",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 32
                                                   ),
                                                 ),
