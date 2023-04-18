@@ -26,7 +26,14 @@ samples, guidance on mobile development, and a full API reference.
 
 Here are some screenshots of the app:
 
-| ![image](https://user-images.githubusercontent.com/93277108/232668646-1d177a6f-c0f4-47ad-8c0c-173428c43e4c.png) | ![image](https://user-images.githubusercontent.com/93277108/232668971-ff4092fa-a807-4539-ac73-d6b1d70171dc.png) |
+<table>
+    <td>
+    ![image](https://user-images.githubusercontent.com/93277108/232668646-1d177a6f-c0f4-47ad-8c0c-173428c43e4c.png)
+    </td>
+    <td>
+    ![image](https://user-images.githubusercontent.com/93277108/232668971-ff4092fa-a807-4539-ac73-d6b1d70171dc.png)
+    </td>
+</table>
 
 
 ## Assets
