@@ -1,6 +1,8 @@
-# weather_app
+# Weather App
 
-A new Flutter project.
+This is a simple weather app built with Flutter that displays the current weather for a given location. The app uses the weatherapi.com API to fetch the weather data and displays it in a user-friendly interface.
+
+
 
 ## Getting Started
 
@@ -11,6 +13,13 @@ tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simpl
 For help getting started with Flutter development, view the
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+Note: You'll need to provide your own weatherapi.com API key in order to fetch weather data. To do this, create a .env file in the root directory of the project and add the following line:
+
+'
+API_KEY=your-api-key-here
+'
+
 
 ## Assets
 
