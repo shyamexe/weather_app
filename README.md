@@ -16,9 +16,9 @@ samples, guidance on mobile development, and a full API reference.
 
 Note: You'll need to provide your own weatherapi.com API key in order to fetch weather data. To do this, create a .env file in the root directory of the project and add the following line:
 
-<code>
+```javascript
 API_KEY=your-api-key-here
-</code>
+```
 
 
 ## Assets
