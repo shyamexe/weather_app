@@ -28,10 +28,10 @@ Here are some screenshots of the app:
 
 <table>
     <td>
-    ![image](https://user-images.githubusercontent.com/93277108/232668646-1d177a6f-c0f4-47ad-8c0c-173428c43e4c.png)
+    <img src="https://user-images.githubusercontent.com/93277108/232668646-1d177a6f-c0f4-47ad-8c0c-173428c43e4c.png" alt="screenshot 1">
     </td>
     <td>
-    ![image](https://user-images.githubusercontent.com/93277108/232668971-ff4092fa-a807-4539-ac73-d6b1d70171dc.png)
+    <img src="https://user-images.githubusercontent.com/93277108/232668971-ff4092fa-a807-4539-ac73-d6b1d70171dc.png" alt="screenshot 2">
     </td>
 </table>
 
