@@ -16,9 +16,10 @@ samples, guidance on mobile development, and a full API reference.
 
 Note: You'll need to provide your own weatherapi.com API key in order to fetch weather data. To do this, create a .env file in the root directory of the project and add the following line:
 
-```javascript
-API_KEY=your-api-key-here
-```
+![image](https://user-images.githubusercontent.com/93277108/232664462-03bca1f6-9e03-490e-9ea3-0256ca1e68cf.png)
+
+![image](https://user-images.githubusercontent.com/93277108/232664671-50b96a09-caee-40a7-bf96-7b482e599c56.png)
+
 
 
 ## Assets
